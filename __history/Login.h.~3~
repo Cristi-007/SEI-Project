@@ -1,0 +1,32 @@
+//---------------------------------------------------------------------------
+
+#ifndef LoginH
+#define LoginH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Buttons.hpp>
+#include <Vcl.Imaging.pngimage.hpp>
+//---------------------------------------------------------------------------
+class TFLogin : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TEdit *Login;
+	TEdit *Pass;
+	TSpeedButton *SpeedButton1;
+	TSpeedButton *SpeedButton2;
+	TImage *Logo;
+	TLabel *Label1;
+	TLabel *Label3;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TFLogin(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFLogin *FLogin;
+//---------------------------------------------------------------------------
+#endif

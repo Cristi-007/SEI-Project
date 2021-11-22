@@ -1,0 +1,53 @@
+//---------------------------------------------------------------------------
+
+#ifndef RapoarteH
+#define RapoarteH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Vcl.Buttons.hpp>
+#include <Vcl.DBCtrls.hpp>
+//---------------------------------------------------------------------------
+class TFRaport : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TLabel *Label5;
+	TLabel *Label12;
+	TLabeledEdit *NumarR;
+	TDateTimePicker *DataRaport;
+	TLabeledEdit *LabeledEdit2;
+	TLabel *Label3;
+	TLabel *Label14;
+	TLabel *Label6;
+	TLabeledEdit *LabeledEdit1;
+	TGroupBox *Obiecte;
+	TLabel *Label7;
+	TLabeledEdit *LabeledEdit3;
+	TLabeledEdit *LabeledEdit4;
+	TLabeledEdit *LabeledEdit5;
+	TSpeedButton *SpeedButton1;
+	TSpeedButton *SpeedButton2;
+	TLabel *Label2;
+	TDBLookupComboBox *Clasificare;
+	TDBLookupComboBox *TipRaport;
+	TGroupBox *Raport;
+	TDBLookupComboBox *DBLookupComboBox1;
+	TDBLookupComboBox *DBLookupComboBox2;
+	TDBLookupComboBox *DBLookupComboBox3;
+	TSpeedButton *SpeedButton3;
+	TSpeedButton *SpeedButton4;
+	void __fastcall Panel1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TFRaport(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFRaport *FRaport;
+//---------------------------------------------------------------------------
+#endif

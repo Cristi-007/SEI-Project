@@ -1,0 +1,624 @@
+object FDosar: TFDosar
+  Left = 0
+  Top = 0
+  Caption = 'FDosar'
+  ClientHeight = 793
+  ClientWidth = 635
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 635
+    Height = 793
+    Align = alClient
+    Color = clMoneyGreen
+    ParentBackground = False
+    TabOrder = 0
+    ExplicitLeft = 8
+    object CancelB: TSpeedButton
+      Left = 58
+      Top = 718
+      Width = 191
+      Height = 43
+      Caption = 'ANULARE'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'SF Pro Display'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = CancelBClick
+    end
+    object EditB: TSpeedButton
+      Left = 372
+      Top = 718
+      Width = 223
+      Height = 43
+      Caption = 'EDITARE DATE'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'SF Pro Display'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = EditBClick
+    end
+    object Label12: TLabel
+      Left = 239
+      Top = 34
+      Width = 207
+      Height = 25
+      Caption = ' EDITARE DOSAR '
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Century'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object DateDosar: TGroupBox
+      Left = 58
+      Top = 80
+      Width = 537
+      Height = 609
+      BiDiMode = bdLeftToRight
+      DoubleBuffered = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'SF Compact Text'
+      Font.Style = [fsBold]
+      ParentBiDiMode = False
+      ParentDoubleBuffered = False
+      ParentFont = False
+      TabOrder = 0
+      object Label10: TLabel
+        Left = 200
+        Top = 273
+        Width = 63
+        Height = 16
+        Caption = 'TERMEN '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label13: TLabel
+        Left = 200
+        Top = 86
+        Width = 72
+        Height = 16
+        Caption = 'DATA ACT '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label14: TLabel
+        Left = 200
+        Top = 211
+        Width = 103
+        Height = 16
+        Caption = 'ELIBERAT DE.. '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label15: TLabel
+        Left = 376
+        Top = 273
+        Width = 86
+        Height = 16
+        Caption = 'TIP RAPORT '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label3: TLabel
+        Left = 200
+        Top = 28
+        Width = 91
+        Height = 16
+        Caption = 'DATA DOSAR '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label4: TLabel
+        Left = 40
+        Top = 147
+        Width = 94
+        Height = 16
+        Caption = 'TIP ACTIUNE '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label5: TLabel
+        Left = 376
+        Top = 211
+        Width = 79
+        Height = 16
+        Caption = 'EXECUTOR '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 40
+        Top = 211
+        Width = 84
+        Height = 16
+        Caption = 'PRIMIT DE.. '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label7: TLabel
+        Left = 40
+        Top = 339
+        Width = 90
+        Height = 16
+        Caption = 'CLASIFICARE'
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label8: TLabel
+        Left = 40
+        Top = 273
+        Width = 95
+        Height = 16
+        Caption = 'ETAPA DOSAR'
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label9: TLabel
+        Left = 200
+        Top = 339
+        Width = 123
+        Height = 16
+        Caption = 'STARE MATERIAL '
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+      end
+      object NoteB: TSpeedButton
+        Left = 376
+        Top = 358
+        Width = 121
+        Height = 32
+        Caption = 'NOTITE'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'SF Pro Display'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = NoteBClick
+      end
+      inline FNotite1: TFNotite
+        Left = 3
+        Top = 408
+        Width = 534
+        Height = 198
+        BiDiMode = bdLeftToRight
+        ParentBackground = False
+        ParentBiDiMode = False
+        TabOrder = 17
+        ExplicitLeft = 3
+        ExplicitTop = 408
+        ExplicitWidth = 534
+        ExplicitHeight = 198
+        inherited Panel2: TPanel
+          Top = 167
+          Width = 534
+          Visible = False
+          ExplicitTop = 238
+          ExplicitWidth = 370
+          inherited SpeedButton2: TSpeedButton
+            Width = 532
+            Visible = False
+            ExplicitLeft = 0
+            ExplicitTop = 2
+            ExplicitWidth = 368
+            ExplicitHeight = 29
+          end
+        end
+        inherited Panel3: TPanel
+          Width = 534
+          Height = 134
+          ExplicitWidth = 370
+          ExplicitHeight = 205
+          inherited Notite: TMemo
+            Width = 532
+            Height = 132
+            Font.Color = clBlack
+            ExplicitLeft = 1
+            ExplicitWidth = 368
+            ExplicitHeight = 203
+          end
+        end
+        inherited Panel1: TPanel
+          Width = 534
+          Color = clMoneyGreen
+          ParentBackground = False
+          ExplicitTop = 3
+          ExplicitWidth = 370
+          inherited SpeedButton1: TSpeedButton
+            Left = 505
+            Top = 6
+            OnClick = FNotite1SpeedButton1Click
+            ExplicitLeft = 505
+            ExplicitTop = 6
+          end
+          inherited Label1: TLabel
+            Left = 222
+            Width = 96
+            Caption = ' NOTITE '
+            ExplicitLeft = 222
+            ExplicitWidth = 96
+          end
+        end
+      end
+      object Locatia: TLabeledEdit
+        Left = 376
+        Top = 46
+        Width = 121
+        Height = 26
+        EditLabel.Width = 92
+        EditLabel.Height = 16
+        EditLabel.Caption = 'LOCATIA CPD'
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clWindowText
+        EditLabel.Font.Height = -13
+        EditLabel.Font.Name = 'Century'
+        EditLabel.Font.Style = []
+        EditLabel.ParentFont = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+      object NrAct: TLabeledEdit
+        Left = 40
+        Top = 105
+        Width = 121
+        Height = 26
+        EditLabel.Width = 140
+        EditLabel.Height = 16
+        EditLabel.Caption = 'NR. ACT DISPUNERE'
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clWindowText
+        EditLabel.Font.Height = -13
+        EditLabel.Font.Name = 'Century'
+        EditLabel.Font.Style = []
+        EditLabel.ParentFont = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
+        TabOrder = 1
+      end
+      object NrActiune: TLabeledEdit
+        Left = 200
+        Top = 167
+        Width = 121
+        Height = 26
+        EditLabel.Width = 119
+        EditLabel.Height = 16
+        EditLabel.Caption = 'NUMAR ACTIUNE'
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clWindowText
+        EditLabel.Font.Height = -13
+        EditLabel.Font.Name = 'Century'
+        EditLabel.Font.Style = []
+        EditLabel.ParentFont = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+      end
+      object NrObiecte: TLabeledEdit
+        Left = 376
+        Top = 105
+        Width = 121
+        Height = 26
+        EditLabel.Width = 116
+        EditLabel.Height = 16
+        EditLabel.Caption = 'NUMAR OBIECTE'
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clWindowText
+        EditLabel.Font.Height = -13
+        EditLabel.Font.Name = 'Century'
+        EditLabel.Font.Style = []
+        EditLabel.ParentFont = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
+        TabOrder = 3
+      end
+      object NrPachete: TLabeledEdit
+        Left = 376
+        Top = 167
+        Width = 121
+        Height = 26
+        EditLabel.Width = 121
+        EditLabel.Height = 16
+        EditLabel.Caption = 'NUMAR PACHETE'
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clWindowText
+        EditLabel.Font.Height = -13
+        EditLabel.Font.Name = 'Century'
+        EditLabel.Font.Style = []
+        EditLabel.ParentFont = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
+        TabOrder = 4
+      end
+      object NumarD: TLabeledEdit
+        Left = 40
+        Top = 46
+        Width = 121
+        Height = 26
+        EditLabel.Width = 102
+        EditLabel.Height = 16
+        EditLabel.Caption = 'NUMAR DOSAR'
+        EditLabel.Color = clBlue
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clBlack
+        EditLabel.Font.Height = -13
+        EditLabel.Font.Name = 'Century'
+        EditLabel.Font.Style = []
+        EditLabel.ParentColor = False
+        EditLabel.ParentFont = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
+        TabOrder = 5
+      end
+      object Clasificare: TDBLookupComboBox
+        Left = 40
+        Top = 361
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        KeyField = 'CLASIFICARE_ID'
+        ListField = 'CLASIFICARE'
+        ListSource = DM.DSQClasificareCombo
+        ParentFont = False
+        TabOrder = 6
+      end
+      object DataAct: TDateTimePicker
+        Left = 200
+        Top = 105
+        Width = 121
+        Height = 26
+        Date = 44420.874391875000000000
+        Time = 44420.874391875000000000
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 7
+      end
+      object DataDosar: TDateTimePicker
+        Left = 200
+        Top = 46
+        Width = 121
+        Height = 26
+        Date = 44420.874391875000000000
+        Time = 44420.874391875000000000
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Century'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 8
+      end
+      object Eliberat: TDBLookupComboBox
+        Left = 200
+        Top = 231
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        KeyField = 'EXPERT_ID'
+        ListField = 'NPP'
+        ListSource = DM.DSQEliberatDe
+        ParentFont = False
+        TabOrder = 9
+      end
+      object TipRaport: TDBLookupComboBox
+        Left = 376
+        Top = 292
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        KeyField = 'TIP_RAPORT_ID'
+        ListField = 'PRESCURTARE'
+        ListSource = DM.DSQTipRaportCombo
+        ParentFont = False
+        TabOrder = 10
+      end
+      object EtapaDos: TComboBox
+        Left = 40
+        Top = 292
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 11
+        Text = 'C (CPD)'
+        Items.Strings = (
+          'C (CPD)'
+          'E (Desigilat)')
+      end
+      object Executor: TDBLookupComboBox
+        Left = 376
+        Top = 231
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        KeyField = 'EXPERT_ID'
+        ListField = 'NPP'
+        ListSource = DM.DSQExecutorCombo
+        ParentFont = False
+        TabOrder = 12
+      end
+      object Primit: TDBLookupComboBox
+        Left = 40
+        Top = 231
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        KeyField = 'EXPERT_ID'
+        ListField = 'NPP'
+        ListSource = DM.DSQPrimitDe
+        ParentFont = False
+        TabOrder = 13
+      end
+      object StMaterial: TComboBox
+        Left = 200
+        Top = 361
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 14
+        Text = 'IN EXECUTARE'
+        Items.Strings = (
+          'IN EXECUTARE'
+          'EXECUTAT'
+          'FARA EXECUTARE')
+      end
+      object Termen: TComboBox
+        Left = 200
+        Top = 292
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 15
+        Items.Strings = (
+          'IN TERMEN'
+          'URGENT')
+      end
+      object TipActiune: TDBLookupComboBox
+        Left = 40
+        Top = 167
+        Width = 121
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'SF Pro Text'
+        Font.Style = []
+        KeyField = 'TIP_ACTIUNE_ID'
+        ListField = 'PRESCURTARE'
+        ListSource = DM.DSQTipActiuneCombo
+        ParentFont = False
+        TabOrder = 16
+      end
+    end
+  end
+end

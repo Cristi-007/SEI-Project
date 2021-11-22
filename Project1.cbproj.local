@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.845,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Login.dfm=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.701,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Project1PCH1.h=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.529,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DM.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.826,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Notite.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.573,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.959,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DataModule.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.197,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.048,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Search.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.167,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DM.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.826,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Notite.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.845,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Login.cpp=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.106,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.588,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Rapoarte.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.535,=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.926,=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.588,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Rapoarte.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.197,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.086,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.845,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Login.h=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.819,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Project1.cbproj=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.317,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Mainn.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.736,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.048,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Search.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.588,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Rapoarte.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.167,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DM.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.079,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.h=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.555,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.414,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.504,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.336,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.070,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.507,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.317,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Mainn.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.079,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.736,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.573,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.167,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DM.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.959,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DataModule.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.048,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Search.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.573,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.317,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Mainn.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.197,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Dosar.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.079,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.959,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\DataModule.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.736,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.dfm=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Add.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.810,=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.264,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.826,E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Notite.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.029,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.306,=C:\Users\cryst\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.704,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.177,=E:\Step IT\Teoria bazelor de date\PROIECT_SEI\Application\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

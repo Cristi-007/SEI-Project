@@ -1,0 +1,73 @@
+//---------------------------------------------------------------------------
+
+#ifndef DosarH
+#define DosarH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Buttons.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Vcl.DBCtrls.hpp>
+#include "Notite.h"
+//---------------------------------------------------------------------------
+class TFDosar : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TLabel *Label12;
+	TLabeledEdit *NumarD;
+	TLabeledEdit *NrAct;
+	TDateTimePicker *DataDosar;
+	TLabel *Label3;
+	TLabel *Label13;
+	TDateTimePicker *DataAct;
+	TLabel *Label4;
+	TLabeledEdit *NrActiune;
+	TLabeledEdit *NrPachete;
+	TLabeledEdit *NrObiecte;
+	TLabeledEdit *Locatia;
+	TComboBox *Termen;
+	TLabel *Label10;
+	TDBLookupComboBox *Executor;
+	TLabel *Label5;
+	TLabel *Label6;
+	TDBLookupComboBox *Primit;
+	TLabel *Label7;
+	TDBLookupComboBox *Clasificare;
+	TComboBox *StMaterial;
+	TLabel *Label9;
+	TLabel *Label8;
+	TComboBox *EtapaDos;
+	TLabeledEdit *NumeOrdonator;
+	TLabeledEdit *PrenumeOrdonator;
+	TDBLookupComboBox *Subdiviziune;
+	TLabel *Label2;
+	TLabel *Label11;
+	TDBLookupComboBox *Directie;
+	TSpeedButton *NoteB;
+	TSpeedButton *EditB;
+	TDBLookupComboBox *Eliberat;
+	TLabel *Label14;
+	TDBLookupComboBox *TipRaport;
+	TLabel *Label15;
+	TGroupBox *DateOrdonator;
+	TGroupBox *DateDosar;
+	TSpeedButton *CancelB;
+	TDBLookupComboBox *TipActiune;
+	TFNotite *FNotite1;
+	void __fastcall CancelBClick(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall NoteBClick(TObject *Sender);
+	void __fastcall FNotite1SpeedButton1Click(TObject *Sender);
+	void __fastcall EditBClick(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TFDosar(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFDosar *FDosar;
+//---------------------------------------------------------------------------
+#endif

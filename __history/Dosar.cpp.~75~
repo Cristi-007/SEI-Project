@@ -1,0 +1,179 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Dosar.h"
+#include "Add.h"
+#include "DataModule.h"
+#include "Login.h"
+#include "Mainn.h"
+#include "Rapoarte.h"
+#include "Search.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "Notite"
+#pragma resource "*.dfm"
+TFDosar *FDosar;
+//---------------------------------------------------------------------------
+__fastcall TFDosar::TFDosar(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TFDosar::FormShow(TObject *Sender)
+{
+	DM->QTipActiuneCombo->Close();
+	DM->QTipActiuneCombo->Open();
+
+	DM->QPrimitDe->Close();
+	DM->QPrimitDe->Open();
+
+	DM->QEliberatDe->Close();
+	DM->QEliberatDe->Open();
+
+	DM->QExecutorCombo->Close();
+	DM->QExecutorCombo->Open();
+
+	DM->QTipRaportCombo->Close();
+	DM->QTipRaportCombo->Open();
+
+	DM->QClasificareCombo->Close();
+	DM->QClasificareCombo->Open();
+
+	NumarD->Text = DM->QSearch->FieldByName("NR_DOSAR")->AsString;
+	DataDosar->Date = DM->QSearch->FieldByName("DATA_DOSAR")->AsDateTime;
+	Locatia->Text = DM->QSearch->FieldByName("LOCATIA_CPD")->AsString;
+
+	NrAct->Text = DM->QSearch->FieldByName("NR_ACT_DISPUNERE")->AsString;
+	DataAct->Date = DM->QSearch->FieldByName("DATA_ACT_DISPUNERE")->AsDateTime;
+	NrObiecte->Text = DM->QSearch->FieldByName("NR_OBIECTE")->AsString;
+
+	TipActiune->KeyValue = DM->QSearch->FieldByName("TIP_ACTIUNE_ID")->AsString;
+	NrActiune->Text = DM->QSearch->FieldByName("NR_ACTIUNE")->AsString;
+	NrPachete->Text = DM->QSearch->FieldByName("NR_PACHETE")->AsString;
+
+	Primit->KeyValue = DM->QSearch->FieldByName("EXPERT_ID_PRIMIT_DOSAR")->AsInteger;
+	Eliberat->KeyValue = DM->QSearch->FieldByName("EXPERT_ID_ELIBERAT_DOSAR")->AsInteger;
+	Executor->KeyValue = DM->QSearch->FieldByName("EXECUTOR_ID")->AsInteger;
+
+	if (DM->QSearch->FieldByName("ETAPE_INTERMEDIARE")->AsString=="C")
+	{
+		EtapaDos->ItemIndex = 0;
+	}
+
+	if (DM->QSearch->FieldByName("ETAPE_INTERMEDIARE")->AsString=="E")
+	{
+		EtapaDos->ItemIndex = 1;
+	}
+
+	Termen->ItemIndex = DM->QSearch->FieldByName("TERMEN")->AsBoolean;
+	TipRaport->KeyValue = DM->QSearch->FieldByName("TIP_RAPORT_ID")->AsInteger;
+
+	Clasificare->KeyValue = DM->QSearch->FieldByName("CLASIFICARE_ID")->AsInteger;
+	StMaterial->ItemIndex = DM->QSearch->FieldByName("STARE_MATERIAL")->AsInteger;
+
+	//FNotite1->Visible = false;
+    NoteB->Enabled = false;
+	FNotite1->Notite->Clear();
+	FNotite1->Notite->Text = DM->QSearch->FieldByName("NOTE")->AsString;
+}
+//---------------------------------------------------------------------------
+void __fastcall TFDosar::CancelBClick(TObject *Sender)
+{
+    FDosar->Close();
+}
+//---------------------------------------------------------------------------
+void __fastcall TFDosar::NoteBClick(TObject *Sender)
+{
+	FNotite1->Visible = true;
+    NoteB->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TFDosar::FNotite1SpeedButton1Click(TObject *Sender)
+{
+	FNotite1->Visible = false;
+    NoteB->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TFDosar::EditBClick(TObject *Sender)
+{
+	AnsiString FreeQuery = NULL;
+	int DosarID = DM->QSearch->FieldByName("DOSAR_ID")->AsInteger;;
+
+/////////////UPDATE DOSAR
+	FreeQuery = "UPDATE DOSAR SET NR_DOSAR = :NR_DOSAR, DATA_DOSAR = :DATA_DOSAR, ";
+	FreeQuery += "LOCATIA_CPD= :LOCATIA_CPD, NR_ACT_DISPUNERE= :NR_ACT_DISPUNERE, ";
+	FreeQuery += "DATA_ACT_DISPUNERE= :DATA_ACT_DISPUNERE, NR_OBIECTE= :NR_OBIECTE, ";
+	FreeQuery += "TIP_ACTIUNE_ID= :TIP_ACTIUNE_ID, NR_ACTIUNE= :NR_ACTIUNE, ";
+	FreeQuery += "NR_PACHETE= :NR_PACHETE, EXPERT_ID_PRIMIT_DOSAR= :EXPERT_ID_PRIMIT_DOSAR, ";
+	FreeQuery += "EXPERT_ID_ELIBERAT_DOSAR= :EXPERT_ID_ELIBERAT_DOSAR, EXECUTOR_ID= :EXECUTOR_ID, ";
+	FreeQuery += "ETAPE_INTERMEDIARE= :ETAPE_INTERMEDIARE, TERMEN= :TERMEN, CLASIFICARE_ID=:CLASIFICARE_ID, ";
+	FreeQuery += "STARE_MATERIAL= :STARE_MATERIAL, NOTE= :NOTE WHERE DOSAR_ID= :DOSAR_ID ";
+
+	DM->QLiber->Close();
+	DM->QLiber->SQL->Clear();
+	DM->QLiber->SQL->Add(FreeQuery);
+
+	if (NumarD->Text == "") {  DM->QLiber->ParamByName("NR_DOSAR")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("NR_DOSAR")->AsInteger = NumarD->Text.ToInt();  }
+	DM->QLiber->ParamByName("DATA_DOSAR")->AsDate = DataDosar->Date;
+	if (Locatia->Text == "") {  DM->QLiber->ParamByName("LOCATIA_CPD")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("LOCATIA_CPD")->AsString = Locatia->Text.UpperCase();  }
+
+
+	if (NrAct->Text == "") {  DM->QLiber->ParamByName("NR_ACT_DISPUNERE")->DataType = ftString;   }
+		else {  DM->QLiber->ParamByName("NR_ACT_DISPUNERE")->AsInteger = NrAct->Text.ToInt();  }
+	DM->QLiber->ParamByName("DATA_ACT_DISPUNERE")->AsDate = DataAct->Date;
+	if (NrObiecte->Text=="") { DM->QLiber->ParamByName("NR_OBIECTE")->AsInteger = 0; }
+		else { DM->QLiber->ParamByName("NR_OBIECTE")->AsInteger = NrObiecte->Text.ToInt(); }
+
+
+	if (TipActiune->KeyValue==NULL) {  DM->QLiber->ParamByName("TIP_ACTIUNE_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("TIP_ACTIUNE_ID")->AsInteger = TipActiune->KeyValue;  }
+	if (NrActiune->Text=="") {  DM->QLiber->ParamByName("NR_ACTIUNE")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("NR_ACTIUNE")->AsString = NrActiune->Text.UpperCase();  }
+	if (NrPachete->Text=="") { DM->QLiber->ParamByName("NR_PACHETE")->AsInteger = 0; }
+		else { DM->QLiber->ParamByName("NR_PACHETE")->AsInteger = NrPachete->Text.ToInt(); }
+
+
+	if (Primit->KeyValue==NULL) {  DM->QLiber->ParamByName("EXPERT_ID_PRIMIT_DOSAR")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("EXPERT_ID_PRIMIT_DOSAR")->AsInteger = Primit->KeyValue;  }
+	if (Eliberat->KeyValue==NULL) { DM->QLiber->ParamByName("EXPERT_ID_ELIBERAT_DOSAR")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("EXPERT_ID_ELIBERAT_DOSAR")->AsInteger = Eliberat->KeyValue;  }
+	if (Executor->KeyValue==NULL) {  DM->QLiber->ParamByName("EXECUTOR_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("EXECUTOR_ID")->AsInteger = Executor->KeyValue;  }
+
+   if ( EtapaDos->ItemIndex == 0 ) { DM->QLiber->ParamByName("ETAPE_INTERMEDIARE")->AsString = "C"; }
+		else  { DM->QLiber->ParamByName("ETAPE_INTERMEDIARE")->AsString = "E"; }
+
+
+	DM->QLiber->ParamByName("TERMEN")->AsInteger = Termen->ItemIndex;
+	if (Clasificare->KeyValue==NULL) {  DM->QLiber->ParamByName("CLASIFICARE_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("CLASIFICARE_ID")->AsInteger = Clasificare->KeyValue;  }
+	DM->QLiber->ParamByName("STARE_MATERIAL")->AsInteger = StMaterial->ItemIndex;
+
+	if (FNotite1->Notite->Text == "") {  DM->QLiber->ParamByName("NOTE")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("NOTE")->AsString = FNotite1->Notite->Text.UpperCase();  }
+
+	DM->QLiber->ParamByName("DOSAR_ID")->AsInteger = Dosar_ID;
+	DM->QLiber->ExecSQL();
+	FreeQuery = NULL;
+
+
+////////////UPDATE TIP RAPORT
+	DM->QLiber->Close();
+	DM->QLiber->SQL->Clear();
+	DM->QLiber->SQL->Add(" UPDATE RAPORT SET TIP_RAPORT_ID = :TIP_RAPORT_ID WHERE RAPORT_ID= :RAPORT_ID ");
+	if (TipRaport->KeyValue==NULL) {  DM->QLiber->ParamByName("TIP_RAPORT_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("TIP_RAPORT_ID")->AsInteger = TipRaport->KeyValue;  }
+	DM->QLiber->ParamByName("RAPORT_ID")->AsInteger = DM->QSearch->FieldByName("RAPORT_ID")->AsInteger;
+	DM->QLiber->ExecSQL();
+	FreeQuery = NULL;
+
+	FDosar->Close();
+	FSearch->VIZUALIZARE->Click();
+
+	ShowMessage("Editare efectuata cu succes!");
+}
+//---------------------------------------------------------------------------

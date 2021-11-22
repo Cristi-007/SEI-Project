@@ -1,0 +1,86 @@
+//---------------------------------------------------------------------------
+
+#ifndef SearchH
+#define SearchH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.Buttons.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Menus.hpp>
+#include <Data.DB.hpp>
+#include <Vcl.DBGrids.hpp>
+#include <Vcl.Grids.hpp>
+#include <Vcl.DBCtrls.hpp>
+//---------------------------------------------------------------------------
+class TFSearch : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TPanel *Panel2;
+	TSpeedButton *VIZUALIZARE;
+	TBevel *Bevel1;
+	TStaticText *StaticText2;
+	TStaticText *StaticText3;
+	TEdit *StartNrDos;
+	TStaticText *StaticText4;
+	TDBGrid *DBGrid1;
+	TCheckBox *FILTRE;
+	TPanel *Panel3;
+	TEdit *NPDos;
+	TStaticText *StaticText8;
+	TStaticText *StaticText9;
+	TSpeedButton *CAUTA;
+	TStaticText *StaticText12;
+	TBevel *Bevel2;
+	TBevel *Bevel3;
+	TStaticText *StaticText13;
+	TEdit *NRRaport;
+	TEdit *CauzaRap;
+	TStaticText *StaticText14;
+	TStaticText *StaticText15;
+	TStaticText *StaticText16;
+	TDateTimePicker *DataRaport;
+	TEdit *FinishNrDos;
+	TLabel *Label1;
+	TDateTimePicker *StartDataDos;
+	TDateTimePicker *FinishDataDos;
+	TLabel *Label2;
+	TStaticText *StaticText1;
+	TStaticText *StaticText17;
+	TStatusBar *FSearchStatusBar;
+	TStaticText *StaticText7;
+	TCheckBox *Data;
+	TDBLookupComboBox *Dir;
+	TDBLookupComboBox *Subdiv;
+	TStaticText *StaticText5;
+	TRadioButton *Dosar;
+	TRadioButton *Raport;
+	TDBLookupComboBox *Expert;
+	TDateTimePicker *DefaultDateTime;
+	TEdit *CauzaDos;
+	TStaticText *StaticText10;
+	TPopupMenu *PopupMenu1;
+	TMenuItem *RedacteazaDosar1;
+	TMenuItem *AdaugaRaport1;
+	TMenuItem *EditareRaport1;
+	void __fastcall FILTREClick(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall VIZUALIZAREClick(TObject *Sender);
+	void __fastcall DataClick(TObject *Sender);
+	void __fastcall SubdivCloseUp(TObject *Sender);
+	void __fastcall CAUTAClick(TObject *Sender);
+	void __fastcall DosarClick(TObject *Sender);
+	void __fastcall RaportClick(TObject *Sender);
+	void __fastcall RedacteazaDosar1Click(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TFSearch(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFSearch *FSearch;
+//---------------------------------------------------------------------------
+#endif

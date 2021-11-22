@@ -1,0 +1,749 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Search.h"
+#include "Login.h"
+#include "Mainn.h"
+#include "DataModule.h"
+#include "Add.h"
+#include "Notite.h"
+#include "Dosar.h"
+#include "Rapoarte.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TFSearch *FSearch;
+
+//---------------------------------------------------------------------------
+__fastcall TFSearch::TFSearch(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFSearch::FILTREClick(TObject *Sender)
+{
+	if (FILTRE->Checked == false) {  Panel3->Visible = false; }
+	if (FILTRE->Checked == true) { Panel3->Visible = true; }
+
+	NRRaport->Clear();
+	Expert->KeyValue = NULL;
+	CauzaRap->Refresh();
+	DataRaport->Date = DefaultDateTime->Date;
+	DataRaport->Time = DefaultDateTime->Time;
+
+	Subdiv->KeyValue = NULL;
+	Dir->KeyValue = NULL;
+	CauzaDos->Clear();
+	NPDos->Clear();
+
+	Dosar->Checked = true;
+
+	DM->QExpertCombo->Close();
+	DM->QExpertCombo->Open();
+
+	StartNrDos->Clear();
+	FinishNrDos->Clear();
+    Data->Checked = false;
+	StartDataDos->Date = System::TDateTime::CurrentDate();
+	FinishDataDos->Date = System::TDateTime::CurrentDate();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFSearch::FormShow(TObject *Sender)
+{
+	FSearchStatusBar->Panels->Items[2]->Text = System::TDateTime::CurrentDate();
+	FSearchStatusBar->Panels->Items[0]->Text = FMain->FMainStatusBar->Panels->Items[0]->Text;
+	FSearchStatusBar->Panels->Items[1]->Text = FMain->FMainStatusBar->Panels->Items[1]->Text;
+
+	Panel3->Visible = false;
+	DM->QSearch->Close();
+	DM->QSearch->Open();
+
+	DM->QSubdiviziuneCombo->Close();
+	DM->QSubdiviziuneCombo->Open();
+
+	StartDataDos->Date = System::TDateTime::CurrentDate();
+	FinishDataDos->Date = System::TDateTime::CurrentDate();
+
+	FILTRE->Checked = false;
+	Data->Checked = false;
+	StartNrDos->Clear();
+	FinishNrDos->Clear();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFSearch::VIZUALIZAREClick(TObject *Sender)
+{
+	AnsiString free_query = NULL;
+
+	if (StartNrDos->Text != "" || FinishNrDos->Text != "" || Data->Checked == true)
+	{
+		free_query = " SELECT TOT.* FROM (SELECT D.*, (SELECT PRESCURTARE FROM TIP_ACTIUNE TA WHERE TA.TIP_ACTIUNE_ID=D.TIP_ACTIUNE_ID) AS TIP_ACTIUNE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXECUTOR_ID) AS EXECUTOR, ";
+		free_query += "IIF(D.TERMEN=1,'URGENT','IN TERMEN') AS TERMEN_CHAR, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_PRIMIT_DOSAR) AS PRIMIT_DE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_ELIBERAT_DOSAR) AS ELIBERAT_DE, ";
+		free_query += "IIF(D.STARE_MATERIAL=1,'EXECUTAT','IN EXECUTARE') AS STARE_MATERIAL_CHAR, ";
+		free_query += "IIF(D.RAPORT_ID IS NULL , 'NU ESTE', 'EFECTUAT' ) AS STARE_RAPORT_CHAR, ";
+		free_query += "(SELECT CLASIFICARE FROM CLASIFICARE CL WHERE CL.CLASIFICARE_ID=D.CLASIFICARE_ID) AS CLASIFICARE, ";
+		free_query += "(SELECT NPOD.NUME+' '+NPOD.PRENUME FROM NPP_ORDONATOR NPOD INNER JOIN ORDONATOR OD ON NPOD.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS NPP_ORDONATOR, ";
+		free_query += "(SELECT PRESCURTARE FROM DIRECTIE DI INNER JOIN ORDONATOR OD ON DI.DIRECTIE_ID=OD.DIRECTIE_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS DIRECTIA, ";
+		free_query += "(SELECT SU.PRESCURTARE FROM ORDONATOR OD INNER JOIN DIRECTIE DR ON OD.DIRECTIE_ID=DR.DIRECTIE_ID ";
+		free_query += "INNER JOIN SUBDIVIZIUNE SU ON DR.SUBDIVIZIUNE_ID=SU.SUBDIVIZIUNE_ID WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS SUBDIVIZIUNE, ";
+		free_query += "( SELECT PRESCURTARE FROM TIP_RAPORT TR INNER JOIN RAPORT RA ON TR.TIP_RAPORT_ID=RA.TIP_RAPORT_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS TIP_RAPORT, ";
+		free_query += "( SELECT GEN_EXAMINARE FROM GEN_EXAMINARE GE INNER JOIN RAPORT RA ON GE.GEN_EXAMINARE_ID=RA.GEN_EXAMINARE_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS GEN_EXAMINARE ";
+		free_query += "FROM DOSAR D ) AS TOT ";
+
+		if (Data->Checked == true)   						//Verificarea cu data
+		{
+			if ( FinishDataDos->Date < StartDataDos->Date )
+			{
+				ShowMessage("Data limita nu poate fi mai mica ca data de inceput!");
+			}
+			else
+			{
+				if (StartNrDos->Text == "" && FinishNrDos->Text == "")
+				{
+					free_query += "WHERE TOT.DATA_DOSAR BETWEEN :STARTDATE AND :FINISHDATE ";
+				}
+
+
+				if (StartNrDos->Text != "" && FinishNrDos->Text == "")
+				{
+					free_query += "WHERE TOT.NR_DOSAR >= :NR_DOSAR AND (TOT.DATA_DOSAR BETWEEN :STARTDATE AND :FINISHDATE) ";
+				}
+
+
+				if (StartNrDos->Text == "" && FinishNrDos->Text != "" )
+				{
+					free_query += "WHERE TOT.NR_DOSAR <= :NR_DOSAR AND (TOT.DATA_DOSAR BETWEEN :STARTDATE AND :FINISHDATE) ";
+				}
+
+
+				if (StartNrDos->Text != "" && FinishNrDos->Text != "")
+				{
+					free_query += "WHERE (TOT.NR_DOSAR BETWEEN :NR_DOS_START AND :NR_DOS_END) AND (TOT.DATA_DOSAR BETWEEN :STARTDATE AND :FINISHDATE) ";
+				}
+
+				free_query += "ORDER BY TOT.NR_DOSAR ASC ";
+
+				DM->QSearch->Close();
+				DM->QSearch->SQL->Clear();
+				DM->QSearch->SQL->Add(free_query);
+
+				if (StartNrDos->Text == "" && FinishNrDos->Text == "")
+				{
+					DM->QSearch->ParamByName("STARTDATE")->AsDate = StartDataDos->Date;
+					DM->QSearch->ParamByName("FINISHDATE")->AsDate = FinishDataDos->Date;
+				}
+
+
+				if (StartNrDos->Text != "" && FinishNrDos->Text == "")
+				{
+					DM->QSearch->ParamByName("NR_DOSAR")->AsInteger = StartNrDos->Text.ToInt();
+					DM->QSearch->ParamByName("STARTDATE")->AsDate = StartDataDos->Date;
+					DM->QSearch->ParamByName("FINISHDATE")->AsDate = FinishDataDos->Date;
+				}
+
+
+				if (StartNrDos->Text == "" && FinishNrDos->Text != "" )
+				{
+					DM->QSearch->ParamByName("NR_DOSAR")->AsInteger = FinishNrDos->Text.ToInt();
+					DM->QSearch->ParamByName("STARTDATE")->AsDate = StartDataDos->Date;
+					DM->QSearch->ParamByName("FINISHDATE")->AsDate = FinishDataDos->Date;
+				}
+
+
+				if (StartNrDos->Text != "" && FinishNrDos->Text != "")
+				{
+					DM->QSearch->ParamByName("NR_DOS_START")->AsInteger = StartNrDos->Text.ToInt();
+					DM->QSearch->ParamByName("NR_DOS_END")->AsInteger = FinishNrDos->Text.ToInt();
+					DM->QSearch->ParamByName("STARTDATE")->AsDate = StartDataDos->Date;
+					DM->QSearch->ParamByName("FINISHDATE")->AsDate = FinishDataDos->Date;
+				}
+
+				DM->QSearch->Open();
+			}
+		}
+
+
+		if (Data->Checked == false)              //Verificarea fara data
+		{
+		   if (StartNrDos->Text != "" && FinishNrDos->Text == "" )
+			{
+				free_query += "WHERE TOT.NR_DOSAR >= :NR_DOSAR ";
+			}
+
+
+			if (StartNrDos->Text == "" && FinishNrDos->Text != "" )
+			{
+				free_query += "WHERE TOT.NR_DOSAR <= :NR_DOSAR ";
+			}
+
+
+			if (StartNrDos->Text != "" && FinishNrDos->Text != "")
+			{
+				free_query += "WHERE TOT.NR_DOSAR BETWEEN :NR_DOS_START AND :NR_DOS_END ";
+			}
+
+			free_query += "ORDER BY TOT.NR_DOSAR ASC ";
+
+			DM->QSearch->Close();
+			DM->QSearch->SQL->Clear();
+			DM->QSearch->SQL->Add(free_query);
+
+
+			if (StartNrDos->Text != "" && FinishNrDos->Text == "" )
+			{
+				DM->QSearch->ParamByName("NR_DOSAR")->AsInteger = StartNrDos->Text.ToInt();
+			}
+
+
+			if (StartNrDos->Text == "" && FinishNrDos->Text != "" )
+			{
+				DM->QSearch->ParamByName("NR_DOSAR")->AsInteger = FinishNrDos->Text.ToInt();
+			}
+
+
+			if (StartNrDos->Text != "" && FinishNrDos->Text != "")
+			{
+				DM->QSearch->ParamByName("NR_DOS_START")->AsInteger = StartNrDos->Text.ToInt();
+				DM->QSearch->ParamByName("NR_DOS_END")->AsInteger = FinishNrDos->Text.ToInt();
+			}
+
+			DM->QSearch->Open();
+		}
+	}
+	else
+	{
+		free_query = " SELECT TOT.* FROM (SELECT D.*, (SELECT PRESCURTARE FROM TIP_ACTIUNE TA WHERE TA.TIP_ACTIUNE_ID=D.TIP_ACTIUNE_ID) AS TIP_ACTIUNE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXECUTOR_ID) AS EXECUTOR, ";
+		free_query += "IIF(D.TERMEN=1,'URGENT','IN TERMEN') AS TERMEN_CHAR, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_PRIMIT_DOSAR) AS PRIMIT_DE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_ELIBERAT_DOSAR) AS ELIBERAT_DE, ";
+		free_query += "IIF(D.STARE_MATERIAL=1,'EXECUTAT','IN EXECUTARE') AS STARE_MATERIAL_CHAR, ";
+		free_query += "IIF(D.RAPORT_ID IS NULL , 'NU ESTE', 'EFECTUAT' ) AS STARE_RAPORT_CHAR, ";
+		free_query += "(SELECT CLASIFICARE FROM CLASIFICARE CL WHERE CL.CLASIFICARE_ID=D.CLASIFICARE_ID) AS CLASIFICARE, ";
+		free_query += "(SELECT NPOD.NUME+' '+NPOD.PRENUME FROM NPP_ORDONATOR NPOD INNER JOIN ORDONATOR OD ON NPOD.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS NPP_ORDONATOR, ";
+		free_query += "(SELECT PRESCURTARE FROM DIRECTIE DI INNER JOIN ORDONATOR OD ON DI.DIRECTIE_ID=OD.DIRECTIE_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS DIRECTIA, ";
+		free_query += "(SELECT SU.PRESCURTARE FROM ORDONATOR OD INNER JOIN DIRECTIE DR ON OD.DIRECTIE_ID=DR.DIRECTIE_ID ";
+		free_query += "INNER JOIN SUBDIVIZIUNE SU ON DR.SUBDIVIZIUNE_ID=SU.SUBDIVIZIUNE_ID WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS SUBDIVIZIUNE, ";
+		free_query += "( SELECT PRESCURTARE FROM TIP_RAPORT TR INNER JOIN RAPORT RA ON TR.TIP_RAPORT_ID=RA.TIP_RAPORT_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS TIP_RAPORT, ";
+		free_query += "( SELECT GEN_EXAMINARE FROM GEN_EXAMINARE GE INNER JOIN RAPORT RA ON GE.GEN_EXAMINARE_ID=RA.GEN_EXAMINARE_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS GEN_EXAMINARE ";
+		free_query += "FROM DOSAR D ) AS TOT ";
+		free_query += "ORDER BY TOT.NR_DOSAR ASC ";
+
+		DM->QSearch->Close();
+		DM->QSearch->SQL->Clear();
+		DM->QSearch->SQL->Add(free_query);
+		DM->QSearch->Open();
+	}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFSearch::DataClick(TObject *Sender)
+{
+	if (Data->Checked == true)
+	{
+		StartDataDos->Enabled = true;
+		FinishDataDos->Enabled = true;
+	}
+
+	if (Data->Checked == false)
+	{
+		StartDataDos->Enabled = false;
+		FinishDataDos->Enabled = false;
+	}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFSearch::SubdivCloseUp(TObject *Sender)
+{
+	DM->QDirectieCombo->Close();
+
+	try
+	{
+		DM->QDirectieCombo->ParamByName("SUBDIVIZIUNE_ID")->AsInteger = Subdiv->KeyValue;
+	}
+	catch (...)	{   }
+
+	DM->QDirectieCombo->Open();
+	Dir->KeyValue = NULL;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFSearch::CAUTAClick(TObject *Sender)
+{
+	AnsiString free_query = NULL;
+
+	if (Dosar->Checked == true)
+	{
+		free_query = " SELECT TOT.* FROM (SELECT D.*, (SELECT PRESCURTARE FROM TIP_ACTIUNE TA WHERE TA.TIP_ACTIUNE_ID=D.TIP_ACTIUNE_ID) AS TIP_ACTIUNE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXECUTOR_ID) AS EXECUTOR, ";
+		free_query += "IIF(D.TERMEN=1,'URGENT','IN TERMEN') AS TERMEN_CHAR, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_PRIMIT_DOSAR) AS PRIMIT_DE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_ELIBERAT_DOSAR) AS ELIBERAT_DE, ";
+		free_query += "IIF(D.STARE_MATERIAL=1,'EXECUTAT','IN EXECUTARE') AS STARE_MATERIAL_CHAR, ";
+		free_query += "IIF(D.RAPORT_ID IS NULL , 'NU ESTE', 'EFECTUAT' ) AS STARE_RAPORT_CHAR, ";
+		free_query += "(SELECT CLASIFICARE FROM CLASIFICARE CL WHERE CL.CLASIFICARE_ID=D.CLASIFICARE_ID) AS CLASIFICARE, ";
+		free_query += "(SELECT NPOD.NUME+' '+NPOD.PRENUME FROM NPP_ORDONATOR NPOD INNER JOIN ORDONATOR OD ON NPOD.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS NPP_ORDONATOR, ";
+		free_query += "(SELECT PRESCURTARE FROM DIRECTIE DI INNER JOIN ORDONATOR OD ON DI.DIRECTIE_ID=OD.DIRECTIE_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS DIRECTIA, ";
+		free_query += "(SELECT SU.PRESCURTARE FROM ORDONATOR OD INNER JOIN DIRECTIE DR ON OD.DIRECTIE_ID=DR.DIRECTIE_ID ";
+		free_query += "INNER JOIN SUBDIVIZIUNE SU ON DR.SUBDIVIZIUNE_ID=SU.SUBDIVIZIUNE_ID WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS SUBDIVIZIUNE, ";
+		free_query += "( SELECT PRESCURTARE FROM TIP_RAPORT TR INNER JOIN RAPORT RA ON TR.TIP_RAPORT_ID=RA.TIP_RAPORT_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS TIP_RAPORT, ";
+		free_query += "( SELECT GEN_EXAMINARE FROM GEN_EXAMINARE GE INNER JOIN RAPORT RA ON GE.GEN_EXAMINARE_ID=RA.GEN_EXAMINARE_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS GEN_EXAMINARE ";
+		free_query += "FROM DOSAR D ) AS TOT ";
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()=="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE ";
+		}
+
+		if (Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()=="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.DIRECTIA=:DIRECTIA ";
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()=="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()!="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.NPP_ORDONATOR=:NPP_ORDONATOR ";
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()!="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.NR_ACTIUNE=:NR_ACTIUNE AND TOT.NPP_ORDONATOR=:NPP_ORDONATOR ";
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()=="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.DIRECTIA=:DIRECTIA AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()!="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.DIRECTIA=:DIRECTIA AND TOT.NPP_ORDONATOR=:NPP_ORDONATOR ";
+		}
+
+		if (Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()!="")
+		{
+			free_query += "WHERE TOT.SUBDIVIZIUNE=:SUBDIVIZIUNE AND TOT.DIRECTIA=:DIRECTIA AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+            free_query += "AND TOT.NPP_ORDONATOR=:NPP_ORDONATOR ";
+		}
+
+///////////////////////
+		if (Subdiv->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()=="")
+		{
+			free_query += "WHERE TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (Subdiv->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()!="")
+		{
+			free_query += "WHERE TOT.NR_ACTIUNE=:NR_ACTIUNE AND TOT.NPP_ORDONATOR=:NPP_ORDONATOR ";
+		}
+
+//////////////////////
+		if (Subdiv->KeyValue==NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()!="")
+		{
+			free_query += "WHERE TOT.NPP_ORDONATOR=:NPP_ORDONATOR ";
+		}
+
+		free_query += "ORDER BY TOT.NR_DOSAR ASC ";
+
+
+		DM->QSearch->Close();
+		DM->QSearch->SQL->Clear();
+		DM->QSearch->SQL->Add(free_query);
+
+/////////////////////
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()=="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+		}
+
+		if (Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()=="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("DIRECTIA")->AsString = Dir->Text.UpperCase();
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()=="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaDos->Text.UpperCase();
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()!="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("NPP_ORDONATOR")->AsString = NPDos->Text.UpperCase();
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()!="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaDos->Text.UpperCase();
+			DM->QSearch->ParamByName("NPP_ORDONATOR")->AsString = NPDos->Text.UpperCase();
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()=="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("DIRECTIA")->AsString = Dir->Text.UpperCase();
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaDos->Text.UpperCase();
+		}
+
+		if (Subdiv->KeyValue!=NULL && Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()!="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("DIRECTIA")->AsString = Dir->Text.UpperCase();
+			DM->QSearch->ParamByName("NPP_ORDONATOR")->AsString = NPDos->Text.UpperCase();
+		}
+
+		if (Dir->KeyValue!=NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()!="")
+		{
+			DM->QSearch->ParamByName("SUBDIVIZIUNE")->AsString = Subdiv->Text.UpperCase();
+			DM->QSearch->ParamByName("DIRECTIA")->AsString = Dir->Text.UpperCase();
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaDos->Text.UpperCase();
+			DM->QSearch->ParamByName("NPP_ORDONATOR")->AsString = NPDos->Text.UpperCase();
+		}
+
+///////////////////////
+		if (Subdiv->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()=="")
+		{
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaDos->Text.UpperCase();
+		}
+
+		if (Subdiv->KeyValue==NULL && CauzaDos->Text.UpperCase()!="" && NPDos->Text.UpperCase()!="")
+		{
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaDos->Text.UpperCase();
+			DM->QSearch->ParamByName("NPP_ORDONATOR")->AsString = NPDos->Text.UpperCase();
+		}
+
+//////////////////////
+		if (Subdiv->KeyValue==NULL && CauzaDos->Text.UpperCase()=="" && NPDos->Text.UpperCase()!="")
+		{
+			DM->QSearch->ParamByName("NPP_ORDONATOR")->AsString = NPDos->Text.UpperCase();
+		}
+
+		DM->QSearch->Open();
+	}
+
+	if (Raport->Checked==true)
+	{
+		free_query = " SELECT TOT.* FROM (SELECT D.*, (SELECT PRESCURTARE FROM TIP_ACTIUNE TA WHERE TA.TIP_ACTIUNE_ID=D.TIP_ACTIUNE_ID) AS TIP_ACTIUNE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXECUTOR_ID) AS EXECUTOR, ";
+		free_query += "IIF(D.TERMEN=1,'URGENT','IN TERMEN') AS TERMEN_CHAR, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_PRIMIT_DOSAR) AS PRIMIT_DE, ";
+		free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_ELIBERAT_DOSAR) AS ELIBERAT_DE, ";
+		free_query += "IIF(D.STARE_MATERIAL=1,'EXECUTAT','IN EXECUTARE') AS STARE_MATERIAL_CHAR, ";
+		free_query += "IIF(D.RAPORT_ID IS NULL , 'NU ESTE', 'EFECTUAT' ) AS STARE_RAPORT_CHAR, ";
+		free_query += "(SELECT CLASIFICARE FROM CLASIFICARE CL WHERE CL.CLASIFICARE_ID=D.CLASIFICARE_ID) AS CLASIFICARE, ";
+		free_query += "(SELECT NPOD.NUME+' '+NPOD.PRENUME FROM NPP_ORDONATOR NPOD INNER JOIN ORDONATOR OD ON NPOD.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS NPP_ORDONATOR, ";
+		free_query += "(SELECT PRESCURTARE FROM DIRECTIE DI INNER JOIN ORDONATOR OD ON DI.DIRECTIE_ID=OD.DIRECTIE_ID ";
+		free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS DIRECTIA, ";
+		free_query += "(SELECT SU.PRESCURTARE FROM ORDONATOR OD INNER JOIN DIRECTIE DR ON OD.DIRECTIE_ID=DR.DIRECTIE_ID ";
+		free_query += "INNER JOIN SUBDIVIZIUNE SU ON DR.SUBDIVIZIUNE_ID=SU.SUBDIVIZIUNE_ID WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS SUBDIVIZIUNE, ";
+		free_query += "( SELECT PRESCURTARE FROM TIP_RAPORT TR INNER JOIN RAPORT RA ON TR.TIP_RAPORT_ID=RA.TIP_RAPORT_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS TIP_RAPORT, ";
+		free_query += "( SELECT GEN_EXAMINARE FROM GEN_EXAMINARE GE INNER JOIN RAPORT RA ON GE.GEN_EXAMINARE_ID=RA.GEN_EXAMINARE_ID ";
+		free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS GEN_EXAMINARE ";
+		free_query += "FROM DOSAR D ) AS TOT ";
+
+///////////////
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text=="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT ";
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT ";
+			free_query += "AND (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID ";
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT ";
+			free_query += "AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+///////////
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT ";
+			free_query += "AND (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT ";
+			free_query += "AND (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID ";
+			free_query += "AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+			free_query += "AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+////////////
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID ";
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID AND TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID ";
+			free_query += "AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID ";
+			free_query += "AND TOT.NR_ACTIUNE=:NR_ACTIUNE AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+///////////////////////
+		if (NRRaport->Text=="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			free_query += "WHERE TOT.NR_ACTIUNE=:NR_ACTIUNE ";
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE TOT.NR_ACTIUNE=:NR_ACTIUNE AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+//////////////////////
+		if (NRRaport->Text=="" && Expert->KeyValue==NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			free_query += "WHERE (SELECT R.NR_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:NR_RAPORT ";
+			free_query +="AND (SELECT R.EXPERT_ID FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:EXPERT_ID ";
+			free_query +="AND TOT.NR_ACTIUNE=:NR_ACTIUNE AND (SELECT R.DATA_RAPORT FROM RAPORT R WHERE TOT.RAPORT_ID=R.RAPORT_ID)=:DATA_RAPORT ";
+		}
+
+		free_query += "ORDER BY TOT.NR_DOSAR ASC ";
+
+		DM->QSearch->Close();
+		DM->QSearch->SQL->Clear();
+		DM->QSearch->SQL->Add(free_query);
+
+///////////////
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text=="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+
+		}
+
+///////////
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+////////////
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+///////////////////////
+		if (NRRaport->Text=="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date==DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+		}
+
+		if (NRRaport->Text=="" && Expert->KeyValue==NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+//////////////////////
+		if (NRRaport->Text=="" && Expert->KeyValue==NULL && CauzaRap->Text=="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+		if (NRRaport->Text!="" && Expert->KeyValue!=NULL && CauzaRap->Text!="" && DataRaport->Date!=DefaultDateTime->Date)
+		{
+			DM->QSearch->ParamByName("NR_RAPORT")->AsInteger = NRRaport->Text.ToInt();
+			DM->QSearch->ParamByName("EXPERT_ID")->AsInteger = Expert->KeyValue;
+			DM->QSearch->ParamByName("NR_ACTIUNE")->AsString = CauzaRap->Text.UpperCase();
+			DM->QSearch->ParamByName("DATA_RAPORT")->AsDate = DataRaport->Date;
+		}
+
+		DM->QSearch->Open();
+	}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFSearch::DosarClick(TObject *Sender)
+{
+	Subdiv->Enabled = true;
+	Dir->Enabled = true;
+	CauzaDos->Enabled = true;
+	NPDos->Enabled = true;
+
+	NRRaport->Enabled = false;
+	Expert->Enabled = false;
+	CauzaRap->Enabled = false;
+	DataRaport->Enabled = false;
+
+	NRRaport->Clear();
+	Expert->KeyValue = NULL;
+	CauzaRap->Clear();
+	DataRaport->Date = DefaultDateTime->Date;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFSearch::RaportClick(TObject *Sender)
+{
+	NRRaport->Enabled = true;
+	Expert->Enabled = true;
+	CauzaRap->Enabled = true;
+	DataRaport->Enabled = true;
+
+	Subdiv->Enabled = false;
+	Dir->Enabled = false;
+	CauzaDos->Enabled = false;
+	NPDos->Enabled = false;
+
+	Subdiv->KeyValue = NULL;
+	Dir->KeyValue = NULL;
+	CauzaDos->Clear();
+	NPDos->Clear();
+}
+//---------------------------------------------------------------------------
+
+
+
+
+/*
+
+  test culoare la dbgrid->material efectuat
+
+	if (DM->QSearch->FieldByName("STARE_MATERIAL_CHAR")->AsString == "EXECUTAT")
+	{
+
+		//DBGrid1->Canvas->Brush->Color = clRed;
+
+	}
+
+
+
+////////
+ numarul de rinduri din dataset
+int NrRind;  NrRind = DM->DSQSearch->DataSet->RecordCount;
+
+
+//////////
+marimea la monitor
+	//int mon;
+   ///	mon = Screen->Width;
+   //	ShowMessage(mon);
+
+*/
+void __fastcall TFSearch::RedacteazaDosar1Click(TObject *Sender)
+{
+	FDosar->ShowModal();
+}
+//---------------------------------------------------------------------------
+
+

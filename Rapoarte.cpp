@@ -1,0 +1,176 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Rapoarte.h"
+#include "Add.h"
+#include "Mainn.h"
+#include "Search.h"
+#include "DataModule.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TFRaport *FRaport;
+//---------------------------------------------------------------------------
+__fastcall TFRaport::TFRaport(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+ void __fastcall TFRaport::FormShow(TObject *Sender)
+{
+	DM->QExpertCombo->Close();
+	DM->QExpertCombo->Open();
+
+	DM->QStagiarCombo->Close();
+	DM->QStagiarCombo->Open();
+
+	DM->QTipObiectCombo->Close();
+	DM->QTipObiectCombo->Open();
+
+	DM->QMarcaTelCombo->Close();
+	DM->QMarcaTelCombo->Open();
+
+	NumarR->Clear();
+	DataR->Date = System::TDateTime::CurrentDate();
+	Pret->Clear();
+	ExpertR->KeyValue = 1;
+	StagiarR->KeyValue = 2;
+	DosDiv->Clear();
+
+	TipObiect->KeyValue = 1;
+	Capacit->Clear();
+	Marca->KeyValue = 1;
+	Model->Clear();
+
+	InregOb->Enabled = false;
+	Obiecte->Enabled = false;
+
+	InregRap->Enabled = true;
+	Raport->Enabled = true;
+
+    Finish->Enabled = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFRaport::Panel1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	try
+	{
+		if (Button == mbLeft)
+		{
+			ReleaseCapture();
+			SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+		}
+	}
+	catch (...)
+	{
+
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFRaport::CancelClick(TObject *Sender)
+{
+	FRaport->Close();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFRaport::InregRapClick(TObject *Sender)
+{
+	AnsiString FreeQuery = NULL;
+
+	ShowMessage(DM->QSearch->FieldByName("RAPORT_ID")->AsInteger);
+
+	FreeQuery = "UPDATE RAPORT SET NR_RAPORT= :NR_RAPORT, DATA_RAPORT= :DATA_RAPORT, ";
+	FreeQuery += "PRET_EXAMINARE= :PRET_EXAMINARE, EXPERT_ID= :EXPERT_ID, ";
+	FreeQuery += "EXPERT_ID_STAGIAR= :EXPERT_ID_STAGIAR, NR_DOSAR_DIVIZARE= :NR_DOSAR_DIVIZARE, ";
+	FreeQuery += "DATA_INREGISTRARII=GETDATE() WHERE RAPORT_ID= :RAPORT_ID ";
+
+	DM->QLiber->Close();
+	DM->QLiber->SQL->Clear();
+	DM->QLiber->SQL->Add(FreeQuery);
+
+	if (NumarR->Text == "") {  DM->QLiber->ParamByName("NR_RAPORT")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("NR_RAPORT")->AsInteger = NumarR->Text.ToInt();  }
+	DM->QLiber->ParamByName("DATA_RAPORT")->AsDate = DataR->Date;
+	if (Pret->Text == "") {  DM->QLiber->ParamByName("PRET_EXAMINARE")->AsInteger = 0;  }
+		else {  DM->QLiber->ParamByName("PRET_EXAMINARE")->AsInteger = Pret->Text.ToInt();  }
+
+
+	if (ExpertR->KeyValue==1) {  DM->QLiber->ParamByName("EXPERT_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("EXPERT_ID")->AsInteger = ExpertR->KeyValue;  }
+
+	if (StagiarR->KeyValue==2) {  DM->QLiber->ParamByName("EXPERT_ID_STAGIAR")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("EXPERT_ID_STAGIAR")->AsInteger = StagiarR->KeyValue;  }
+
+	if (DosDiv->Text=="") {  DM->QLiber->ParamByName("NR_DOSAR_DIVIZARE")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("NR_DOSAR_DIVIZARE")->AsInteger = DosDiv->Text.ToInt(); }
+
+	DM->QLiber->ParamByName("RAPORT_ID")->AsInteger = DM->QSearch->FieldByName("RAPORT_ID")->AsInteger;
+	DM->QLiber->ExecSQL();
+	FreeQuery = NULL;
+
+	ShowMessage("Raport inregistrat cu succes!");
+
+	Obiecte->Enabled = true;
+	InregOb->Enabled = true;
+
+	Raport->Enabled = false;
+	InregRap->Enabled = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFRaport::InregObClick(TObject *Sender)
+{
+	AnsiString FreeQuery = NULL;
+
+	FreeQuery = "INSERT INTO OBIECTE (TIP_OBIECT_ID, MARCA_ID, MODEL, CAPACITATE, RAPORT_EXAMINARE_ID ) ";
+	FreeQuery += "VALUES(:TIP_OBIECT_ID, :MARCA_ID, :MODEL, :CAPACITATE, :RAPORT_EXAMINARE_ID) ";
+
+	DM->QLiber->Close();
+	DM->QLiber->SQL->Clear();
+	DM->QLiber->SQL->Add(FreeQuery);
+
+	if (TipObiect->KeyValue==1) {  DM->QLiber->ParamByName("TIP_OBIECT_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("TIP_OBIECT_ID")->AsInteger = TipObiect->KeyValue;  }
+	if (Marca->KeyValue==1) {  DM->QLiber->ParamByName("MARCA_ID")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("MARCA_ID")->AsInteger = Marca->KeyValue;  }
+
+	if (Capacit->Text == "") {  DM->QLiber->ParamByName("CAPACITATE")->AsInteger = 0;  }
+		else {  DM->QLiber->ParamByName("CAPACITATE")->AsInteger = Capacit->Text.ToInt();  }
+
+	if (Model->Text=="") {  DM->QLiber->ParamByName("MODEL")->DataType = ftString;  }
+		else {  DM->QLiber->ParamByName("MODEL")->AsString = Model->Text.UpperCase(); }
+
+	DM->QLiber->ParamByName("RAPORT_EXAMINARE_ID")->AsInteger = DM->QSearch->FieldByName("RAPORT_ID")->AsInteger;
+
+	DM->QLiber->ExecSQL();
+	FreeQuery = NULL;
+
+	ShowMessage("Obiect inregistrat cu succes!");
+
+   	TipObiect->KeyValue = 1;
+	Capacit->Clear();
+	Marca->KeyValue = 1;
+	Model->Clear();
+
+	Finish->Enabled = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFRaport::FinishClick(TObject *Sender)
+{
+	DM->QExpertCombo->Close();
+	DM->QStagiarCombo->Close();
+	DM->QTipObiectCombo->Close();
+	DM->QMarcaTelCombo->Close();
+    DM->QLiber->Close();
+
+	FRaport->Close();
+}
+//---------------------------------------------------------------------------
+
