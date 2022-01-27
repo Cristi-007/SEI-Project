@@ -29,17 +29,17 @@ void __fastcall TFSearch::FILTREClick(TObject *Sender)
 	if (FILTRE->Checked == false)
 	{
 		Panel3->Visible = false;
-		StartNrDos->Enabled = true;
-		FinishNrDos->Enabled = true;
-		Data->Enabled = true;
+		StartNrDos->Enabled = false;
+		FinishNrDos->Enabled = false;
+		Data->Enabled = false;
 
 	}
 	if (FILTRE->Checked == true)
 	{
 		Panel3->Visible = true;
-		StartNrDos->Enabled = false;
-		FinishNrDos->Enabled = false;
-		Data->Enabled = false;
+		StartNrDos->Enabled = true;
+		FinishNrDos->Enabled = true;
+		Data->Enabled = true;
 	}
 
 	NRRaport->Clear();

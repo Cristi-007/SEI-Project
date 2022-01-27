@@ -35,9 +35,6 @@ Coordinates=74,440,54,36
 [Bevel1]
 Coordinates=10,440,54,36
 
-[StaticText12]
-Coordinates=771,394,86,36
-
 [DM.ProcOrdonator_ID]
 Coordinates=134,190,142,58
 
@@ -158,9 +155,6 @@ Coordinates=530,326,79,36
 [StaticText17]
 Coordinates=434,326,86,36
 
-[StaticText9]
-Coordinates=345,326,79,36
-
 [StaticText8]
 Coordinates=256,326,79,36
 
@@ -195,5 +189,5 @@ Coordinates=98,326,86,36
 Coordinates=10,122,111,58
 
 []
-Coordinates=657,558,91,36
+Coordinates=771,394,86,36
 

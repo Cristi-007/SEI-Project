@@ -248,10 +248,13 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 {
 	AnsiString FreeQuery = NULL;
 
+	ShowMessage("nume");
+
 	if (CautNumeO->Text!="")
 	{
 		if (CautSubdivO->KeyValue==1)
 		{
+		ShowMessage("1");
 			FreeQuery = "SELECT OD.*, NPO.NUME+'  '+PRENUME AS NP_ORDONATOR, NPO.NUME, NPO.PRENUME, DI.DIRECTIE, ";
 			FreeQuery += "DI.PRESCURTARE AS PRESCURTARE_DIR,DI.SUBDIVIZIUNE_ID, SU.SUBDIVIZIUNE, SU.PRESCURTARE AS PRESCURTARE_SUBDIV ";
 			FreeQuery += "FROM NPP_ORDONATOR NPO INNER JOIN ORDONATOR OD ON NPO.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
@@ -265,6 +268,7 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 		}
 		else if (CautDirO->KeyValue==1)
 		{
+		ShowMessage("2");
 			FreeQuery = "SELECT OD.*, NPO.NUME+'  '+PRENUME AS NP_ORDONATOR, NPO.NUME, NPO.PRENUME, DI.DIRECTIE, ";
 			FreeQuery += "DI.PRESCURTARE AS PRESCURTARE_DIR,DI.SUBDIVIZIUNE_ID, SU.SUBDIVIZIUNE, SU.PRESCURTARE AS PRESCURTARE_SUBDIV ";
 			FreeQuery += "FROM NPP_ORDONATOR NPO INNER JOIN ORDONATOR OD ON NPO.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
@@ -279,6 +283,7 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 		}
 		else
 		{
+		ShowMessage("3");
 			FreeQuery = "SELECT OD.*, NPO.NUME+'  '+PRENUME AS NP_ORDONATOR, NPO.NUME, NPO.PRENUME, DI.DIRECTIE, ";
 			FreeQuery += "DI.PRESCURTARE AS PRESCURTARE_DIR,DI.SUBDIVIZIUNE_ID, SU.SUBDIVIZIUNE, SU.PRESCURTARE AS PRESCURTARE_SUBDIV ";
 			FreeQuery += "FROM NPP_ORDONATOR NPO INNER JOIN ORDONATOR OD ON NPO.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
@@ -298,6 +303,7 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 	{
 		if (CautSubdivO->KeyValue==1)
 		{
+		ShowMessage("4");
 			FreeQuery = "SELECT OD.*, NPO.NUME+'  '+PRENUME AS NP_ORDONATOR, NPO.NUME, NPO.PRENUME, DI.DIRECTIE, ";
 			FreeQuery += "DI.PRESCURTARE AS PRESCURTARE_DIR,DI.SUBDIVIZIUNE_ID, SU.SUBDIVIZIUNE, SU.PRESCURTARE AS PRESCURTARE_SUBDIV ";
 			FreeQuery += "FROM NPP_ORDONATOR NPO INNER JOIN ORDONATOR OD ON NPO.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
@@ -311,6 +317,7 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 		}
 		else if (CautDirO->KeyValue==1)
 		{
+		ShowMessage("5");
 			FreeQuery = "SELECT OD.*, NPO.NUME+'  '+PRENUME AS NP_ORDONATOR, NPO.NUME, NPO.PRENUME, DI.DIRECTIE, ";
 			FreeQuery += "DI.PRESCURTARE AS PRESCURTARE_DIR,DI.SUBDIVIZIUNE_ID, SU.SUBDIVIZIUNE, SU.PRESCURTARE AS PRESCURTARE_SUBDIV ";
 			FreeQuery += "FROM NPP_ORDONATOR NPO INNER JOIN ORDONATOR OD ON NPO.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
@@ -325,6 +332,11 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 		}
 		else
 		{
+		ShowMessage("6");
+
+		ShowMessage(CautSubdivO->KeyValue);
+		ShowMessage(CautDirO->KeyValue);
+
 			FreeQuery = "SELECT OD.*, NPO.NUME+'  '+PRENUME AS NP_ORDONATOR, NPO.NUME, NPO.PRENUME, DI.DIRECTIE, ";
 			FreeQuery += "DI.PRESCURTARE AS PRESCURTARE_DIR,DI.SUBDIVIZIUNE_ID, SU.SUBDIVIZIUNE, SU.PRESCURTARE AS PRESCURTARE_SUBDIV ";
 			FreeQuery += "FROM NPP_ORDONATOR NPO INNER JOIN ORDONATOR OD ON NPO.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
@@ -346,6 +358,8 @@ void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 void __fastcall TFAdd::CautPrenumeOChange(TObject *Sender)
 {
 	AnsiString FreeQuery = NULL;
+
+	ShowMessage("prenume");
 
 	if (CautNumeO->Text=="")
 	{
@@ -550,6 +564,7 @@ void __fastcall TFAdd::EditBClick(TObject *Sender)
 	CautSubdivO->KeyValue = 1;
 	CautNumeO->Clear();
 	CautPrenumeO->Clear();
+
 
 	CautareO->TabVisible = false;
 	InregO->TabVisible = false;

@@ -1,15 +1,10 @@
 object FAdd: TFAdd
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'INREGISTRARE'
-  ClientHeight = 701
-  ClientWidth = 1334
+  ClientHeight = 700
+  ClientWidth = 1335
   Color = clBtnFace
-  Constraints.MaxHeight = 740
-  Constraints.MaxWidth = 1350
-  Constraints.MinHeight = 740
-  Constraints.MinWidth = 1350
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -22,18 +17,16 @@ object FAdd: TFAdd
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1334
-    Height = 675
+    Width = 1335
+    Height = 674
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 1335
-    ExplicitHeight = 674
     object PageControl1: TPageControl
       Left = 0
       Top = 0
-      Width = 1334
-      Height = 675
+      Width = 1335
+      Height = 674
       ActivePage = Ordonator
       Align = alClient
       BiDiMode = bdLeftToRight
@@ -47,8 +40,7 @@ object FAdd: TFAdd
       TabHeight = 25
       TabOrder = 0
       TabWidth = 1335
-      ExplicitWidth = 1335
-      ExplicitHeight = 674
+      ExplicitTop = -6
       object InregDos: TTabSheet
         Caption = 'INREGISTRARE DOSAR'
         Font.Charset = RUSSIAN_CHARSET
@@ -57,12 +49,10 @@ object FAdd: TFAdd
         Font.Name = 'Century'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitWidth = 1327
-        ExplicitHeight = 639
         object Panel2: TPanel
           Left = 0
           Top = 0
-          Width = 1326
+          Width = 1327
           Height = 265
           Align = alTop
           BevelOuter = bvLowered
@@ -75,7 +65,6 @@ object FAdd: TFAdd
           ParentBackground = False
           ParentFont = False
           TabOrder = 0
-          ExplicitWidth = 1327
           object Label4: TLabel
             Left = 360
             Top = 30
@@ -649,8 +638,8 @@ object FAdd: TFAdd
         object Panel4: TPanel
           Left = 0
           Top = 265
-          Width = 1326
-          Height = 307
+          Width = 1327
+          Height = 306
           Align = alClient
           Color = clActiveCaption
           Font.Charset = RUSSIAN_CHARSET
@@ -661,13 +650,11 @@ object FAdd: TFAdd
           ParentBackground = False
           ParentFont = False
           TabOrder = 1
-          ExplicitWidth = 1327
-          ExplicitHeight = 306
           inline FNotite: TFNotite
-            Left = 911
+            Left = 912
             Top = 1
             Width = 414
-            Height = 305
+            Height = 304
             Align = alRight
             TabOrder = 0
             Visible = False
@@ -676,7 +663,7 @@ object FAdd: TFAdd
             ExplicitWidth = 414
             ExplicitHeight = 304
             inherited Panel2: TPanel
-              Top = 274
+              Top = 273
               Width = 414
               ExplicitTop = 273
               ExplicitWidth = 414
@@ -691,12 +678,12 @@ object FAdd: TFAdd
             end
             inherited Panel3: TPanel
               Width = 414
-              Height = 241
+              Height = 240
               ExplicitWidth = 414
               ExplicitHeight = 240
               inherited Notite: TMemo
                 Width = 412
-                Height = 239
+                Height = 238
                 Font.Charset = RUSSIAN_CHARSET
                 ExplicitLeft = 1
                 ExplicitWidth = 412
@@ -722,8 +709,8 @@ object FAdd: TFAdd
           object DBGrid1: TDBGrid
             Left = 1
             Top = 1
-            Width = 910
-            Height = 305
+            Width = 911
+            Height = 304
             Align = alClient
             Color = clActiveCaption
             DataSource = DM.DSQInregistrare
@@ -1170,8 +1157,8 @@ object FAdd: TFAdd
         end
         object Panel5: TPanel
           Left = 0
-          Top = 572
-          Width = 1326
+          Top = 571
+          Width = 1327
           Height = 68
           Align = alBottom
           Color = clActiveCaption
@@ -1183,8 +1170,6 @@ object FAdd: TFAdd
           ParentBackground = False
           ParentFont = False
           TabOrder = 2
-          ExplicitTop = 571
-          ExplicitWidth = 1327
           object InregistrareB: TSpeedButton
             Left = 422
             Top = 10
@@ -1232,13 +1217,11 @@ object FAdd: TFAdd
       object Ordonator: TTabSheet
         Caption = 'ORDONATOR'
         ImageIndex = 2
-        ExplicitWidth = 1327
-        ExplicitHeight = 639
         object PageControl2: TPageControl
           Left = 0
           Top = 0
           Width = 393
-          Height = 640
+          Height = 639
           ActivePage = CautareO
           Align = alLeft
           Font.Charset = RUSSIAN_CHARSET
@@ -1249,16 +1232,14 @@ object FAdd: TFAdd
           ParentFont = False
           TabOrder = 0
           TabWidth = 393
-          ExplicitHeight = 639
           object CautareO: TTabSheet
             Caption = 'CAUTARE RAPIDA'
             ImageIndex = 2
-            ExplicitHeight = 606
             object Panel6: TPanel
               Left = 0
               Top = 0
               Width = 377
-              Height = 607
+              Height = 606
               Align = alLeft
               Color = clActiveCaption
               Font.Charset = RUSSIAN_CHARSET
@@ -1269,7 +1250,6 @@ object FAdd: TFAdd
               ParentBackground = False
               ParentFont = False
               TabOrder = 0
-              ExplicitHeight = 606
               object NewO: TSpeedButton
                 Left = 70
                 Top = 500
@@ -1426,12 +1406,11 @@ object FAdd: TFAdd
           end
           object InregO: TTabSheet
             Caption = 'INTREGISTRARE'
-            ExplicitHeight = 606
             object Panel3: TPanel
               Left = 0
               Top = 0
               Width = 377
-              Height = 607
+              Height = 606
               Align = alLeft
               Color = clActiveCaption
               Font.Charset = RUSSIAN_CHARSET
@@ -1442,7 +1421,6 @@ object FAdd: TFAdd
               ParentBackground = False
               ParentFont = False
               TabOrder = 0
-              ExplicitHeight = 606
               object EditareB: TSpeedButton
                 Left = 70
                 Top = 457
@@ -1625,12 +1603,11 @@ object FAdd: TFAdd
           object EditareO: TTabSheet
             Caption = 'EDITARE'
             ImageIndex = 1
-            ExplicitHeight = 606
             object Panel7: TPanel
               Left = 0
               Top = 0
               Width = 377
-              Height = 607
+              Height = 606
               Align = alLeft
               Color = clActiveCaption
               Font.Charset = RUSSIAN_CHARSET
@@ -1641,7 +1618,6 @@ object FAdd: TFAdd
               ParentBackground = False
               ParentFont = False
               TabOrder = 0
-              ExplicitHeight = 606
               object EditSaveB: TSpeedButton
                 Left = 70
                 Top = 371
@@ -1811,8 +1787,8 @@ object FAdd: TFAdd
         object DBGrid2: TDBGrid
           Left = 393
           Top = 0
-          Width = 933
-          Height = 640
+          Width = 934
+          Height = 639
           Align = alClient
           DataSource = DM.DSQOrdonator
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -1937,8 +1913,8 @@ object FAdd: TFAdd
   end
   object FAddStatusBar: TStatusBar
     Left = 0
-    Top = 675
-    Width = 1334
+    Top = 674
+    Width = 1335
     Height = 26
     Panels = <
       item
@@ -1964,7 +1940,5 @@ object FAdd: TFAdd
         Text = 'Status BD:      '
         Width = 50
       end>
-    ExplicitTop = 674
-    ExplicitWidth = 1335
   end
 end

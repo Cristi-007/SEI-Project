@@ -1,7 +1,6 @@
 object FMain: TFMain
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'SEI - Electronic Database V.1'
   ClientHeight = 561
   ClientWidth = 977

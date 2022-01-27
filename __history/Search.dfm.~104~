@@ -5,8 +5,6 @@ object FSearch: TFSearch
   ClientHeight = 736
   ClientWidth = 1136
   Color = clBtnFace
-  Constraints.MinHeight = 736
-  Constraints.MinWidth = 1136
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -156,7 +154,7 @@ object FSearch: TFSearch
     end
     object FILTRE: TCheckBox
       Left = 825
-      Top = 21
+      Top = 24
       Width = 125
       Height = 50
       Anchors = [akTop, akRight]
@@ -840,6 +838,36 @@ object FSearch: TFSearch
       ParentFont = False
       TabOrder = 1
     end
+    object StaticText9: TStaticText
+      Left = 208
+      Top = 7
+      Width = 108
+      Height = 22
+      Anchors = [akTop]
+      Caption = 'DATE DOSAR'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Lucida Fax'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      TabOrder = 2
+    end
+    object StaticText12: TStaticText
+      Left = 690
+      Top = 7
+      Width = 118
+      Height = 22
+      Anchors = [akTop]
+      Caption = 'DATE RAPORT'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Lucida Fax'
+      Font.Style = [fsUnderline]
+      ParentFont = False
+      TabOrder = 3
+    end
     object StaticText13: TStaticText
       Left = 542
       Top = 38
@@ -853,7 +881,7 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 4
     end
     object NRRaport: TEdit
       Left = 610
@@ -869,7 +897,7 @@ object FSearch: TFSearch
       Font.Style = []
       NumbersOnly = True
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 5
       TextHint = 'Numar'
     end
     object CauzaRap: TEdit
@@ -885,7 +913,7 @@ object FSearch: TFSearch
       Font.Name = 'SF Pro Text'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 6
       TextHint = 'C.P./P.P./C.C.'
     end
     object StaticText14: TStaticText
@@ -901,7 +929,7 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 7
     end
     object StaticText15: TStaticText
       Left = 549
@@ -916,7 +944,7 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 8
     end
     object StaticText16: TStaticText
       Left = 758
@@ -931,7 +959,7 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 9
     end
     object DataRaport: TDateTimePicker
       Left = 610
@@ -950,7 +978,7 @@ object FSearch: TFSearch
       Font.Style = []
       ParentDoubleBuffered = False
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 10
     end
     object StaticText7: TStaticText
       Left = 20
@@ -965,7 +993,7 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 9
+      TabOrder = 11
     end
     object Dir: TDBLookupComboBox
       Left = 382
@@ -982,7 +1010,7 @@ object FSearch: TFSearch
       ListField = 'PRESCURTARE'
       ListSource = DM.DSQDirectieCombo
       ParentFont = False
-      TabOrder = 10
+      TabOrder = 12
     end
     object Subdiv: TDBLookupComboBox
       Left = 148
@@ -999,7 +1027,7 @@ object FSearch: TFSearch
       ListField = 'PRESCURTARE'
       ListSource = DM.DSQSubdiviziuneCombo
       ParentFont = False
-      TabOrder = 11
+      TabOrder = 13
       OnCloseUp = SubdivCloseUp
     end
     object StaticText5: TStaticText
@@ -1015,40 +1043,26 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 12
+      TabOrder = 14
     end
     object Dosar: TRadioButton
-      Left = 177
-      Top = 3
-      Width = 128
-      Height = 26
+      Left = 182
+      Top = 8
+      Width = 26
+      Height = 17
       Anchors = [akTop]
-      Caption = 'DATE DOSAR'
       Checked = True
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Lucida Fax'
-      Font.Style = [fsUnderline]
-      ParentFont = False
-      TabOrder = 13
+      TabOrder = 15
       TabStop = True
       OnClick = DosarClick
     end
     object Raport: TRadioButton
-      Left = 673
-      Top = 6
-      Width = 136
-      Height = 21
+      Left = 660
+      Top = 8
+      Width = 28
+      Height = 17
       Anchors = [akTop]
-      Caption = 'DATE RAPORT'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Lucida Fax'
-      Font.Style = [fsUnderline]
-      ParentFont = False
-      TabOrder = 14
+      TabOrder = 16
       OnClick = RaportClick
     end
     object Expert: TDBLookupComboBox
@@ -1066,7 +1080,7 @@ object FSearch: TFSearch
       ListField = 'NPP'
       ListSource = DM.DSQExpertCombo
       ParentFont = False
-      TabOrder = 15
+      TabOrder = 17
     end
     object CauzaDos: TEdit
       Left = 382
@@ -1080,7 +1094,7 @@ object FSearch: TFSearch
       Font.Name = 'SF Pro Text'
       Font.Style = []
       ParentFont = False
-      TabOrder = 16
+      TabOrder = 18
       TextHint = 'C.P. / P.P. / C.C.'
     end
     object StaticText10: TStaticText
@@ -1096,7 +1110,7 @@ object FSearch: TFSearch
       Font.Name = 'Lucida Fax'
       Font.Style = []
       ParentFont = False
-      TabOrder = 17
+      TabOrder = 19
     end
   end
   object FSearchStatusBar: TStatusBar

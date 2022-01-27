@@ -3,20 +3,20 @@ object FLogin: TFLogin
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Login'
-  ClientHeight = 436
-  ClientWidth = 454
+  ClientHeight = 430
+  ClientWidth = 450
   Color = clBtnFace
   Constraints.MaxHeight = 475
   Constraints.MaxWidth = 470
-  Constraints.MinHeight = 475
-  Constraints.MinWidth = 470
+  Constraints.MinHeight = 430
+  Constraints.MinWidth = 450
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poDesktopCenter
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -24,16 +24,14 @@ object FLogin: TFLogin
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 454
-    Height = 436
+    Width = 450
+    Height = 430
     Align = alClient
     BevelOuter = bvNone
     Color = clBtnHighlight
     ParentBackground = False
     TabOrder = 0
-    DesignSize = (
-      454
-      436)
+    ExplicitWidth = 448
     object Shape2: TShape
       Left = 40
       Top = 352
@@ -68,7 +66,6 @@ object FLogin: TFLogin
       Top = 352
       Width = 161
       Height = 41
-      Anchors = [akTop, akRight]
       Caption = 'Exit'
       Flat = True
       Font.Charset = DEFAULT_CHARSET
@@ -2216,7 +2213,6 @@ object FLogin: TFLogin
       Width = 233
       Height = 27
       Alignment = taCenter
-      Anchors = [akLeft, akTop, akRight]
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -2232,7 +2228,6 @@ object FLogin: TFLogin
       Width = 233
       Height = 27
       Alignment = taCenter
-      Anchors = [akLeft, akTop, akRight]
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -2242,7 +2237,6 @@ object FLogin: TFLogin
       PasswordChar = '*'
       TabOrder = 1
       TextHint = 'Parola'
-      OnKeyPress = PassKeyPress
     end
   end
 end

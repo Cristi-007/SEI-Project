@@ -5,8 +5,6 @@ object FSearch: TFSearch
   ClientHeight = 736
   ClientWidth = 1136
   Color = clBtnFace
-  Constraints.MinHeight = 736
-  Constraints.MinWidth = 1136
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -156,7 +154,7 @@ object FSearch: TFSearch
     end
     object FILTRE: TCheckBox
       Left = 825
-      Top = 21
+      Top = 24
       Width = 125
       Height = 50
       Anchors = [akTop, akRight]

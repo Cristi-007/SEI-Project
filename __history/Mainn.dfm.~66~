@@ -1,15 +1,12 @@
 object FMain: TFMain
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'SEI - Electronic Database V.1'
-  ClientHeight = 561
-  ClientWidth = 977
+  ClientHeight = 555
+  ClientWidth = 973
   Color = clBtnFace
-  Constraints.MaxHeight = 620
-  Constraints.MaxWidth = 993
-  Constraints.MinHeight = 620
-  Constraints.MinWidth = 993
+  Constraints.MinHeight = 555
+  Constraints.MinWidth = 973
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -24,8 +21,8 @@ object FMain: TFMain
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 977
-    Height = 535
+    Width = 973
+    Height = 529
     Align = alClient
     Color = clBtnHighlight
     Ctl3D = True
@@ -34,13 +31,11 @@ object FMain: TFMain
     ParentCtl3D = False
     ParentDoubleBuffered = False
     TabOrder = 0
-    ExplicitWidth = 973
-    ExplicitHeight = 529
     DesignSize = (
-      977
-      535)
+      973
+      529)
     object Image5: TImage
-      Left = 752
+      Left = 749
       Top = 336
       Width = 66
       Height = 69
@@ -1924,7 +1919,7 @@ object FMain: TFMain
       ExplicitLeft = 755
     end
     object Label3: TLabel
-      Left = 431
+      Left = 429
       Top = 269
       Width = 90
       Height = 23
@@ -1940,7 +1935,7 @@ object FMain: TFMain
       ExplicitLeft = 433
     end
     object Image3: TImage
-      Left = 390
+      Left = 388
       Top = 110
       Width = 166
       Height = 164
@@ -2101,7 +2096,7 @@ object FMain: TFMain
       ExplicitLeft = 392
     end
     object Label1: TLabel
-      Left = 128
+      Left = 127
       Top = 269
       Width = 175
       Height = 23
@@ -2117,7 +2112,7 @@ object FMain: TFMain
       ExplicitLeft = 129
     end
     object Image1: TImage
-      Left = 133
+      Left = 132
       Top = 103
       Width = 162
       Height = 164
@@ -8331,7 +8326,7 @@ object FMain: TFMain
       ExplicitLeft = 134
     end
     object ListExam: TSpeedButton
-      Left = 493
+      Left = 490
       Top = 318
       Width = 350
       Height = 105
@@ -8347,10 +8342,9 @@ object FMain: TFMain
       Font.Style = [fsBold]
       ParentFont = False
       ParentBiDiMode = False
-      ExplicitLeft = 490
     end
     object Image2: TImage
-      Left = 643
+      Left = 640
       Top = 103
       Width = 175
       Height = 162
@@ -9966,7 +9960,7 @@ object FMain: TFMain
       ExplicitLeft = 646
     end
     object Label2: TLabel
-      Left = 619
+      Left = 616
       Top = 269
       Width = 220
       Height = 23
@@ -9982,7 +9976,7 @@ object FMain: TFMain
       ExplicitLeft = 622
     end
     object Image4: TImage
-      Left = 129
+      Left = 128
       Top = 340
       Width = 102
       Height = 61
@@ -21753,9 +21747,10 @@ object FMain: TFMain
         9833FF0FD4EE5846F0F1D4800000000049454E44AE426082}
       Proportional = True
       Stretch = True
+      ExplicitLeft = 129
     end
     object ListMat: TSpeedButton
-      Left = 106
+      Left = 105
       Top = 318
       Width = 366
       Height = 105
@@ -21775,7 +21770,7 @@ object FMain: TFMain
       ExplicitLeft = 107
     end
     object InregDosar: TSpeedButton
-      Left = 106
+      Left = 105
       Top = 93
       Width = 225
       Height = 203
@@ -21792,7 +21787,7 @@ object FMain: TFMain
       ExplicitLeft = 107
     end
     object Statistica: TSpeedButton
-      Left = 361
+      Left = 359
       Top = 93
       Width = 225
       Height = 203
@@ -21808,7 +21803,7 @@ object FMain: TFMain
       ExplicitLeft = 363
     end
     object Image6: TImage
-      Left = 133
+      Left = 132
       Top = 103
       Width = 162
       Height = 164
@@ -25501,7 +25496,7 @@ object FMain: TFMain
       ExplicitLeft = 134
     end
     object InregExam: TSpeedButton
-      Left = 618
+      Left = 615
       Top = 93
       Width = 225
       Height = 203
@@ -25520,8 +25515,8 @@ object FMain: TFMain
   end
   object FMainStatusBar: TStatusBar
     Left = 0
-    Top = 535
-    Width = 977
+    Top = 529
+    Width = 973
     Height = 26
     Panels = <
       item
@@ -25549,8 +25544,6 @@ object FMain: TFMain
         Text = 'Status BD:      '
         Width = 50
       end>
-    ExplicitTop = 529
-    ExplicitWidth = 973
   end
   object MainMenu1: TMainMenu
     Left = 8

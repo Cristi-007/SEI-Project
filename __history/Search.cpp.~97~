@@ -26,21 +26,8 @@ __fastcall TFSearch::TFSearch(TComponent* Owner)
 
 void __fastcall TFSearch::FILTREClick(TObject *Sender)
 {
-	if (FILTRE->Checked == false)
-	{
-		Panel3->Visible = false;
-		StartNrDos->Enabled = true;
-		FinishNrDos->Enabled = true;
-		Data->Enabled = true;
-
-	}
-	if (FILTRE->Checked == true)
-	{
-		Panel3->Visible = true;
-		StartNrDos->Enabled = false;
-		FinishNrDos->Enabled = false;
-		Data->Enabled = false;
-	}
+	if (FILTRE->Checked == false) {  Panel3->Visible = false; }
+	if (FILTRE->Checked == true) { Panel3->Visible = true; }
 
 	NRRaport->Clear();
 	Expert->KeyValue = NULL;
@@ -68,40 +55,13 @@ void __fastcall TFSearch::FILTREClick(TObject *Sender)
 
 void __fastcall TFSearch::FormShow(TObject *Sender)
 {
-	AnsiString free_query = NULL;
-
 	FSearchStatusBar->Panels->Items[2]->Text = System::TDateTime::CurrentDate();
 	FSearchStatusBar->Panels->Items[0]->Text = FMain->FMainStatusBar->Panels->Items[0]->Text;
 	FSearchStatusBar->Panels->Items[1]->Text = FMain->FMainStatusBar->Panels->Items[1]->Text;
 
 	Panel3->Visible = false;
-
-	free_query = " SELECT TOT.* FROM (SELECT D.*, (SELECT PRESCURTARE FROM TIP_ACTIUNE TA WHERE TA.TIP_ACTIUNE_ID=D.TIP_ACTIUNE_ID) AS TIP_ACTIUNE, ";
-	free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXECUTOR_ID) AS EXECUTOR, ";
-	free_query += "IIF(D.TERMEN=1,'URGENT','IN TERMEN') AS TERMEN_CHAR, ";
-	free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_PRIMIT_DOSAR) AS PRIMIT_DE, ";
-	free_query += "(SELECT NUME+' '+PRENUME FROM EXPERT EX WHERE EX.EXPERT_ID=D.EXPERT_ID_ELIBERAT_DOSAR) AS ELIBERAT_DE, ";
-	free_query += "IIF(D.STARE_MATERIAL=1,'EXECUTAT','IN EXECUTARE') AS STARE_MATERIAL_CHAR, ";
-	free_query += "IIF(D.RAPORT_ID IS NULL , 'NU ESTE', 'EFECTUAT' ) AS STARE_RAPORT_CHAR, ";
-	free_query += "(SELECT CLASIFICARE FROM CLASIFICARE CL WHERE CL.CLASIFICARE_ID=D.CLASIFICARE_ID) AS CLASIFICARE, ";
-	free_query += "(SELECT NPOD.NUME+' '+NPOD.PRENUME FROM NPP_ORDONATOR NPOD INNER JOIN ORDONATOR OD ON NPOD.NPP_ORDONATOR_ID=OD.NPP_ORDONATOR_ID ";
-	free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS NPP_ORDONATOR, ";
-	free_query += "(SELECT PRESCURTARE FROM DIRECTIE DI INNER JOIN ORDONATOR OD ON DI.DIRECTIE_ID=OD.DIRECTIE_ID ";
-	free_query += "WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS DIRECTIA, ";
-	free_query += "(SELECT SU.PRESCURTARE FROM ORDONATOR OD INNER JOIN DIRECTIE DR ON OD.DIRECTIE_ID=DR.DIRECTIE_ID ";
-	free_query += "INNER JOIN SUBDIVIZIUNE SU ON DR.SUBDIVIZIUNE_ID=SU.SUBDIVIZIUNE_ID WHERE D.ORDONATOR_ID=OD.ORDONATOR_ID) AS SUBDIVIZIUNE, ";
-	free_query += "( SELECT PRESCURTARE FROM TIP_RAPORT TR INNER JOIN RAPORT RA ON TR.TIP_RAPORT_ID=RA.TIP_RAPORT_ID ";
-	free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS TIP_RAPORT, ";
-	free_query += "( SELECT GEN_EXAMINARE FROM GEN_EXAMINARE GE INNER JOIN RAPORT RA ON GE.GEN_EXAMINARE_ID=RA.GEN_EXAMINARE_ID ";
-	free_query += "WHERE RA.RAPORT_ID=D.RAPORT_ID) AS GEN_EXAMINARE ";
-	free_query += "FROM DOSAR D ) AS TOT ";
-	free_query += "ORDER BY TOT.NR_DOSAR ASC ";
-
 	DM->QSearch->Close();
-	DM->QSearch->SQL->Clear();
-	DM->QSearch->SQL->Add(free_query);
 	DM->QSearch->Open();
-
 
 	DM->QSubdiviziuneCombo->Close();
 	DM->QSubdiviziuneCombo->Open();

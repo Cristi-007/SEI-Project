@@ -130,12 +130,3 @@ void __fastcall TFLogin::FormShow(TObject *Sender)
 
 
 
-void __fastcall TFLogin::PassKeyPress(TObject *Sender, System::WideChar &Key)
-{
-	if (Key == 13)
-	{
-		LoginB->Click();
-	}
-}
-//---------------------------------------------------------------------------
-

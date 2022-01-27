@@ -243,7 +243,6 @@ void __fastcall TFAdd::InregistrareBClick(TObject *Sender)
 	 }
 }
 //---------------------------------------------------------------------------
-
 void __fastcall TFAdd::CautNumeOChange(TObject *Sender)
 {
 	AnsiString FreeQuery = NULL;
@@ -547,17 +546,16 @@ void __fastcall TFAdd::CautPrenumeOChange(TObject *Sender)
 
 void __fastcall TFAdd::EditBClick(TObject *Sender)
 {
-	CautSubdivO->KeyValue = 1;
 	CautNumeO->Clear();
 	CautPrenumeO->Clear();
-
-	CautareO->TabVisible = false;
-	InregO->TabVisible = false;
-	EditareO->TabVisible = false;
-	CautareO->TabVisible = true;
+	CautSubdivO->KeyValue = 1;
 
 	InregDos->TabVisible = false;
 	Ordonator->TabVisible = true;
+
+	CautareO->TabVisible = true;
+	InregO->TabVisible = false;
+	EditareO->TabVisible = false;
 
 	DM->QOrdonator->Close();
 	DM->QOrdonator->Open();

@@ -1,7 +1,6 @@
 object FAdd: TFAdd
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'INREGISTRARE'
   ClientHeight = 701
   ClientWidth = 1334

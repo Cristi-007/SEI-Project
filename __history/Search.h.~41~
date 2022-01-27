@@ -32,7 +32,9 @@ __published:	// IDE-managed Components
 	TPanel *Panel3;
 	TEdit *NPDos;
 	TStaticText *StaticText8;
+	TStaticText *StaticText9;
 	TSpeedButton *CAUTA;
+	TStaticText *StaticText12;
 	TBevel *Bevel2;
 	TBevel *Bevel3;
 	TStaticText *StaticText13;

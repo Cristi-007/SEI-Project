@@ -5,11 +5,10 @@ object DM: TDM
   object FDConnection1: TFDConnection
     Params.Strings = (
       'Database=MATERIALE_SEI'
-      'Server=CRISTIAN-D202\SQLEXPRESS'
+      'Server=OPERATOR'
       'User_Name=cristian.harea'
       'Password=Expert_0506'
       'DriverID=MSSQL')
-    Connected = True
     LoginPrompt = False
     Left = 480
     Top = 8
